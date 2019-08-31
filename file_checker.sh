@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 checkIfPyScript() {
     if [[ -r "$1" ]]; then
@@ -18,8 +18,12 @@ fi
 
 PY_PATHS=("#!/usr/bin/python", "#!/usr/local/bin/python", "#!/usr/bin/env python", "#!python")
 
-dir_1=$1
-dir_2=`[[ -n "$2" ]] && echo $2 || echo $PWD`
+DIR_1=$1
+DIR_2=`[[ -n "$2" ]] && echo $2 || echo $PWD`
 
-find ${dir_1} -type f | while read file; do checkIfPyScript "${file}"; done
-find ${dir_2} -type f | while read file; do checkIfPyScript "${file}"; done
+find ${DIR_1} -type f | while read file; do checkIfPyScript "${file}"; done
+find ${DIR_2} -type f | while read file; do checkIfPyScript "${file}"; done
+
+echo "#######################################"
+
+diff -u <(find test/dir1 -type f -exec md5sum {} + | sort -k 2) <(find test/dir2 -type f -exec md5sum {} + | sort -k 2)
