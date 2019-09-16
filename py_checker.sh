@@ -14,7 +14,7 @@ check_py_shebang() {
 get_md5sum() {
 	if [[ -r "$1" ]]; then
         md5sum=`md5sum "$1" | awk '{print $1'}`
-        echo $md5sum
+        echo ${md5sum}
     fi
 }
 
@@ -29,14 +29,14 @@ DIR_1=$1
 DIR_2=`[[ -n "$2" ]] && echo $2 || echo $PWD`
 
 IFS=$'\n'
-declare -a UNIQ_FILES=`diff -rq $DIR_1 $DIR_2 | grep Only | grep .py | awk '{ gsub(":","/",$3); for(i=5;i<=NF;i++) $4=$4 OFS $i; print $3$4 }'`
+declare -a UNIQ_FILES=`diff -rq ${DIR_1} ${DIR_2} | grep Only | grep .py | awk '{ gsub(":","/",$3); for(i=5;i<=NF;i++) $4=$4 OFS $i; print $3$4 }'`
 
-declare -a PY_FILES_DIR1=`find $DIR_1 -type f | while read file; do check_py_shebang "$file"; done`
+declare -a PY_FILES_DIR1=`find ${DIR_1} -type f | while read file; do check_py_shebang "$file"; done`
 
 for file in ${PY_FILES_DIR1[@]} ; do
     if [[ ! ("${UNIQ_FILES[@]}" =~ "$file") ]]; then
     	file_in_dir2=${file/$DIR_1/$DIR_2}
-    	file_dir1_md5=`get_md5sum $file`
+    	file_dir1_md5=`get_md5sum ${file}`
     	file_dir2_md5=`get_md5sum "${file_in_dir2}"`
 
     	if [[ "${file_dir1_md5}" == "${file_dir2_md5}" ]]; then
