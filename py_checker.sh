@@ -12,7 +12,7 @@ check_py_shebang() {
 }
 
 get_md5sum() {
-	if [[ -r "$1" ]]; then
+    if [[ -r "$1" ]]; then
         md5sum=`md5sum "$1" | awk '{print $1'}`
         echo ${md5sum}
     fi
