@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+#useless piece of crap, don't run it
+
 checkIfPyScript() {
     if [[ -r "$1" ]]; then
         py=`head -n 1 "$1"`
