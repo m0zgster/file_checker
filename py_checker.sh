@@ -51,7 +51,7 @@ for file in ${PY_FILES_DIR1[@]} ; do
     	file_dir2_md5=`get_md5sum "${file_in_dir2}"`
 
     	if [[ "${file_dir1_md5}" == "${file_dir2_md5}" ]]; then
-    		echo "${file_dir1_md5} | ${file_dir2_md5} | Files ${file} and ${file_in_dir2} are qual"
+    		echo "${file_dir1_md5} | ${file_dir2_md5} | Files ${file} and ${file_in_dir2} are equal"
     	else
     		echo "${file_dir1_md5} | ${file_dir2_md5} | Files ${file} and ${file_in_dir2} differ"
     	fi
